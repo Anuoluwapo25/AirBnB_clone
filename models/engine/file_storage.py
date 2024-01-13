@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Module for file storage"""
-from model.base_model import BaseModel
+from models.base_model import BaseModel
 import json
 import os
 
