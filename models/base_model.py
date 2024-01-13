@@ -36,6 +36,4 @@ class BaseModel:
         
         return dics
        
-new = BaseModel()
-# print(new.to_dict())
-print(new)
+

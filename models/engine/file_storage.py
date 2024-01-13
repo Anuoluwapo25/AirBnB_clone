@@ -16,7 +16,7 @@ class FileStorage():
     def new(self, obj):
         """sets in __objects the obj with key"""
         keyo = f"{obj.__class__.__name__}.{obj.id}"
-        self.__object[key] = obj
+        self.__objects[keyo] = obj
 
     def save(self):
         """Serializes objects to the JSON file"""
@@ -27,7 +27,7 @@ class FileStorage():
         with open(self.__file_path, "w") as file:
             json.dump(encod_obj, file)
     def reload(self):
-        """Deserializes th JSON file to __objects"""
+        """Deserializes the JSON file to __objects"""
 
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "r") as file:
