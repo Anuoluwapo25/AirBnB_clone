@@ -6,19 +6,20 @@ import sys
 
 class HBNBCommand(cmd.Cmd):
 
-    prompt = "(hbnb) "
+    prompt = '(hbnb) '
 
-    def do_EOF(self, line):
+    def do_EOF(self, arg):
+        print()
         return True
 
-    def help_EOF(self, command):
-        print("EOF Command to exit the program\n")
+    def help_EOF(self):
+        print("Quit command to exit the program")
 
     def do_quit(self, line):
         return True
 
     def help_quit(self):
-        print('Quit command to exit the program\n')
+        print('Quit command to exit the program')
 
     def emptyline(self):
         pass
