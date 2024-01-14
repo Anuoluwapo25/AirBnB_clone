@@ -21,12 +21,9 @@ class FileStorage():
 
     def save(self):
         """Serializes objects to the JSON file"""
-        encod_obj = {}
-        for key, obj in self.__objects.items():
-            encod_obj[key] = obj.to_dic()
-
         with open(self.__file_path, "w") as file:
-            json.dump(encod_obj, file)
+            json.dump({key: obj.to_dict() for key,
+                obj in self.__objects.items()}, file)
         
     def reload(self):
         """Deserializes the JSON file to __objects"""
@@ -38,7 +35,7 @@ class FileStorage():
                     for key, value in decodeobj.items():
                         class_name, obj_id = key.split('.')
                         class_type = eval(class_name)
-                        obj_instance = class_type(**obj_dict)
+                        obj_instance = self.__classes.get(cls)(**obj)
                         self.__objects[key] = obj_instance
 
                 except json.JSONDecodeError:
