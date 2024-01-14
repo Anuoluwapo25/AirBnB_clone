@@ -1,9 +1,22 @@
 #!/usr/bin/python3
+"""_summary_
+
+    Returns:
+        _type_: _description_
+"""
+
+
 from uuid import uuid4
 from datetime import datetime
 from models import storage
+
+
 class BaseModel:
+    """_summary_
+    """
     def __init__(self, *args, **kwargs):
+        """_summary_
+        """
         if kwargs is not None:
             for key, value in kwargs.items():
                 if key == "__class__":
@@ -24,19 +37,27 @@ class BaseModel:
             self.updated_at = datetime.now()
         
     def __str__(self) -> str:
+        """_summary_
+
+        Returns:
+            str: _description_
+        """
         return f"[{self.__class__.__name__}] ({self.id}) <{self.__dict__}>"
     
     def save(self):
+        """_summary_
+        """
         self.updated_at = self.updated_at.now()
         storage.save()
         
     def to_dict(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
         dics = self.__dict__
         dics["__class__"] = self.__class__.__name__
         dics["created_at"] = self.created_at.isoformat()
         dics["updated_at"] = self.updated_at.isoformat()
-        
-        
         return dics
-       
-
