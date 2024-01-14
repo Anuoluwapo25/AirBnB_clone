@@ -8,12 +8,12 @@ class FileStorage():
     __file_path = "file.json"
     __objects = {}
 
-    @property
+
     def all(self):
         """returns the d__objects"""
         return self.__objects
     
-    @all.setter
+
     def new(self, obj):
         """sets in __objects the obj with key"""
         keyo = f"{obj.__class__.__name__}.{obj.id}"
@@ -42,5 +42,4 @@ class FileStorage():
 
                 except json.JSONDecodeError:
                     pass
- 
-
+   
