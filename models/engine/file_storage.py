@@ -5,6 +5,11 @@ import os
 
 
 class FileStorage():
+    """_summary_
+
+    Returns:
+        _type_: _description_
+    """
     __file_path = "file.json"
     __objects = {}
 
@@ -26,7 +31,8 @@ class FileStorage():
             encod_obj[key] = obj.to_dic()
 
         with open(self.__file_path, "w") as file:
-            json.dump(encod_obj, file)
+            file.write(json.dumps(encod_obj))
+  
         
     def reload(self):
         """Deserializes the JSON file to __objects"""
