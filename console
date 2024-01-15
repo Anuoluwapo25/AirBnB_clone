@@ -1,0 +1,131 @@
+#!/usr/bin/python3
+"""_summary_
+
+    Returns:
+        _type_: _description_
+    """
+
+import cmd
+from models.base_model import BaseModel
+import sys
+
+
+class HBNBCommand(cmd.Cmd):
+    """_summary_
+
+    Args:
+        cmd (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    prompt = '(hbnb) '
+
+    def do_EOF(self, arg):
+        """_summary_
+
+        Args:
+            arg (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        print()
+        return True
+
+    def help_EOF(self):
+        """_summary_
+        """
+        print("Quit command to exit the program")
+
+    def do_quit(self, line):
+        """_summary_
+
+        Args:
+            line (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        return True
+
+    def help_quit(self):
+        """_summary_
+        """
+        print('Quit command to exit the program')
+
+    def emptyline(self):
+        pass
+
+    def do_create(self, class_name):
+        """_summary_
+
+        Args:
+            class_name (_type_): _description_
+        """
+        if not class_name:
+            print("** class name missing **")
+            return
+
+        try:
+            new_instance = eval(class_name)()
+            new_instance.save()
+            print(new_instance.id)
+        except NameError:
+            print("** class doesn\'t exist **")
+
+    def do_show(self, arg):
+        """_summary_
+
+        Args:
+            class_name (_type_): _description_
+        """
+        args arg.split()
+        if not args or len(args) < 1:
+            print("** class name missing **")
+            return
+        try:
+            class_name = args[0]
+            if class_name in globals():
+                if len(args) > 1:
+                    instance_id = args[1]
+                    key = "{}.{}".format(class_name, instance_id)
+                    objects = BaseModel.load_from_file()
+                    if key in objects:
+                        print(objects[key])
+                    else:
+                        print("** no instance found **")
+                else:
+                    print('** instance id missing **')
+            else:
+                print('** class doesn\'t exist **')
+        except NameError:
+            print('** class doesn\'t exist **')
+
+    def do_destroy(self, arg):
+        """Delete an instance based on class name and id."""
+        args = arg.split()
+        if not args or len(args) < 1:
+            print('** class name missing **')
+            return
+        try:
+            class_name = args[0]
+            if class_name in globals():
+                if len(args) > 1:
+                    instance_id = args[1]
+                    key = "{}.{}".format(class_name, instance_id)
+                    objects = BaseModel.load_from_file()
+                    if key in objects:
+                        del objects[key]
+                        BaseModel.save_to_file(objects)
+                    else:
+                        print('** no instance found **')
+                else:
+                        print('** instance id missing **')
+            else:
+                print('** class doesn\'t exist **')
+        except NameError:
+            print('** class doesn\'t exist **')
+
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
