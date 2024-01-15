@@ -30,12 +30,12 @@ class BaseModel:
                 self.created_at = datetime.now()
                 self.updated_at = datetime.now()
         else:
-            storage.new(self)
+            models.storage.new(self)
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         
-    def __str__(self) -> str:
+    def __str__(self):
         """_summary_
 
         Returns:
