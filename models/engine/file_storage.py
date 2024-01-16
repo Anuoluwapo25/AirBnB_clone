@@ -38,7 +38,7 @@ class FileStorage():
                     if class_name in class_list:
                         new_inst = class_list[class_name](**value)
                         self.__objects[key] = new_inst
-            except Exception as e:
+            except FileNotFoundError:
                 pass
         else:
             pass
