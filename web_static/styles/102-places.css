@@ -1,0 +1,21 @@
+@media all and (max-width:300px) {
+    .container{
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+    .filters{
+        width: 0.5rem;
+        height: 0.5rem;
+        font-size: 0.3rem;
+        flex-wrap: wrap;
+    }  
+    
+    .filters button{
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+    .filters h4{
+        font-size: 0.2rem;
+        
+    }
+}
