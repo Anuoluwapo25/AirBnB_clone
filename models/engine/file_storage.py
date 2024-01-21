@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Module for file storage"""
+import models
 import json
 import os
 
@@ -31,12 +32,20 @@ class FileStorage():
                 obj in self.__objects.items()}, file)
 
         
-    def reload(cls):
+    def reload(self):
         """Deserializes the JSON file to __objects"""
 
-        try:
-            with open(cls.__file_path, 'r', encoding='utf-8') as file:
-                cls.__objects = json.load(file)
-
-        except FileNotFoundError:
+        if os.path.exists(self.__file_path):
+            try:
+                with open(self.__file_path, 'r', encoding='utf-8') as file:
+                    obj_en = json.load(file)
+                for key, value in obj_en.items():
+                    class_name = value.get('__class__')
+                    if class_name in class_list:
+                        new_inst = class_list[class_name](**value)
+                        self.__objects[key] = new_inst
+            except FileNotFoundError:
+                pass
+        else:
             pass
+
